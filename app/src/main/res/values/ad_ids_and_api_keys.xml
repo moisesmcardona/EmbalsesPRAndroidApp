@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve"></string>
+    <string name="admob_app_id"></string>
+    <string name="mainad"></string>
+    <string name="dampagead"></string>
+    <string name="aboutad"></string>
+    <string name="damdataad"></string>
+    <string name="historyad"></string>
+    <string name="map1"></string>
+    <string name="map2"></string>
+    <string name="graphAd"></string>
+</resources>

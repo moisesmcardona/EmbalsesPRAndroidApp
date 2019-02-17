@@ -1,0 +1,123 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/embalse"
+        android:id="@+id/embalse"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/graphad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/graphAd">
+    </com.google.android.gms.ads.AdView>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_below="@+id/embalse"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/graphad" >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/_7days_spanish"
+                android:id="@+id/textView2"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true" />
+            <com.jjoe64.graphview.GraphView
+                android:layout_below="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="200dip"
+                android:id="@+id/graph7days"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/_14days_spanish"
+                android:id="@+id/fecha"
+                android:layout_below="@+id/graph7days"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp" />
+            <com.jjoe64.graphview.GraphView
+                android:layout_width="match_parent"
+                android:layout_height="200dip"
+                android:id="@+id/graph14days"
+                android:layout_below="@+id/fecha"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/_30days_spanish"
+                android:id="@+id/textView4"
+                android:layout_below="@+id/graph14days"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp" />
+            <com.jjoe64.graphview.GraphView
+                android:layout_width="match_parent"
+                android:layout_height="200dip"
+                android:id="@+id/graph30days"
+                android:layout_below="@+id/textView4"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/_60days_spanish"
+                android:id="@+id/textView5"
+                android:layout_below="@+id/graph30days"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp" />
+            <com.jjoe64.graphview.GraphView
+                android:layout_width="match_parent"
+                android:layout_height="200dip"
+                android:id="@+id/graph60days"
+                android:layout_below="@+id/textView5"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/_90days_spanish"
+                android:id="@+id/textView6"
+                android:layout_below="@+id/graph60days"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp" />
+            <com.jjoe64.graphview.GraphView
+                android:layout_width="match_parent"
+                android:layout_height="200dip"
+                android:id="@+id/graph90days"
+                android:layout_below="@+id/textView6"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true" />
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

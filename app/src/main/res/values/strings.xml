@@ -1,0 +1,153 @@
+<resources>
+    <string name="app_name">Embalses de Puerto Rico</string>
+    <string name="action_settings">Acerca del app</string>
+    <string name="playvideo">Ver Video del Embalse</string>
+    <string name="history">Historial del Embalse</string>
+    <string name="visitFB">Visitar Página en Facebook</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string-array name="mainlist">
+        <item>Caonillas</item>
+        <item>Carite</item>
+        <item>Carraízo</item>
+        <item>Cerrillos</item>
+        <item>Cidra</item>
+        <item>Fajardo</item>
+        <item>Guajataca</item>
+        <item>La Plata</item>
+        <item>Patillas</item>
+        <item>Rio Blanco</item>
+        <item>Toa Vaca</item>
+    </string-array>
+    <string-array name="drawerMainActivityList">
+        <item>Selección de Embalses</item>
+        <item>Acerca del App</item>
+        <item>Facebook</item>
+        <item>Idioma / Language</item>
+        <item>Cambiar página principal</item>
+        <item>Política de Privacidad</item>
+    </string-array>
+    <string-array name="drawerDamListNoVideo">
+        <item>Selección de Embalses</item>
+        <item>Acerca del App</item>
+        <item>Facebook</item>
+        <item>Idioma / Language</item>
+        <item>Cambiar página principal</item>
+        <item>Política de Privacidad</item>
+    </string-array>
+    <string-array name="drawerDamListWithVideo">
+        <item>Selección de Embalses</item>
+        <item>Ver Video</item>
+        <item>Acerca del App</item>
+        <item>Facebook</item>
+        <item>Idioma / Language</item>
+        <item>Cambiar página principal</item>
+        <item>Política de Privacidad</item>
+    </string-array>
+    <string-array name="drawerMainActivityListEnglish">
+        <item>Reservoir Selection</item>
+        <item>About App</item>
+        <item>Facebook</item>>
+        <item>Language / Idioma</item>
+        <item>Change Front Page</item>
+        <item>Política de Privacidad</item>
+    </string-array>
+    <string-array name="drawerDamListNoVideoEnglish">
+        <item>Reservoir Selection</item>
+        <item>About App</item>
+        <item>Facebook</item>
+        <item>Language / Idioma</item>
+        <item>Change Front Page</item>
+        <item>Privacy Policy</item>
+    </string-array>
+    <string-array name="drawerDamListWithVideoEnglish">
+        <item>Reservoir Selection</item>
+        <item>Watch Video</item>
+        <item>About App</item>
+        <item>Facebook</item>
+        <item>Language / Idioma</item>
+        <item>Change Front Page</item>
+        <item>Privacy Policy</item>
+    </string-array>
+    <string name="acerca_de">Desarrollado por: Moisés Cardona\nVersion 1.8.4\n©2015&#8211;2019 Todos los Derechos Reservados</string>
+    <string name="about_app">"Developed by: Moisés Cardona\nVersion 1.8.4\n©2015&#8211;2019 All Rights Reserved"</string>
+    <string name="website_url">https://moisescardona.me</string>
+    <string name="title_activity_dam_maps">Embalses de Puerto Rico</string>
+    <string name="title_activity_look_in_map">Embalses de Puerto Rico</string>
+    <string name="select_in_map_spanish">Seleccione un embalse en el mapa:</string>
+    <string name="select_in_map_english">Select a Reservoir in the map:</string>
+    <string name="leyenda">LEYENDA:</string>
+    <string name="key">KEY:</string>
+    <string name="cargando">Cargando&#8230;</string>
+    <string name="leyenda_verde">VERDE: Embalse aumentó su nivel</string>
+    <string name="key_green">GREEN: Reservoir increased its level</string>
+    <string name="leyenda_amarillo">AMARILLO: Embalse se quedó igual</string>
+    <string name="key_yellow">YELLOW: Reservoir did not changed its level</string>
+    <string name="leyenda_rojo">ROJO: Embalse disminuyó su nivel</string>
+    <string name="key_red">RED: Reservoir decreased its level</string>
+    <string name="lectura_actual">Lectura Actual:</string>
+    <string name="right_now">Right now:</string>
+    <string name="pasada_hora">Pasada hora:</string>
+    <string name="last_hour">Last hour</string>
+    <string name="pasadas_6_horas">Pasadas 6 horas:</string>
+    <string name="last_6_hours">Last 6 hours</string>
+    <string name="pasadas_12_horas">Pasadas 12 horas:</string>
+    <string name="last_12_hours">Last 12 hours</string>
+    <string name="pasadas_24_horas">Pasadas 24 horas:</string>
+    <string name="last_24_hours">Last 24 hours:</string>
+    <string name="pasados_7_dias">Pasados 7 días</string>
+    <string name="last_7_days">Last 7 days</string>
+    <string name="pasados_14_dias">Pasados 14 días</string>
+    <string name="last_14_days">Last 14 days</string>
+    <string name="pasados_30_dias">Pasados 30 días</string>
+    <string name="last_30_days">Last 30 days</string>
+    <string name="pasados_60_dias">Pasados 6 días</string>
+    <string name="last_60_days">Last_60_days</string>
+    <string name="pasados_90_dias">Pasados 90 días</string>
+    <string name="last_90_days">Last 90 days</string>
+    <string name="lista">Lista</string>
+    <string name="mapa">Mapa</string>
+    <string name="list">List</string>
+    <string name="map">Map</string>
+    <string name="embalse">Embalse</string>
+    <string name="datos">Datos</string>
+    <string name="data">Data</string>
+    <string name="mas_datos">Más Datos</string>
+    <string name="more_data">More Data</string>
+    <string name="historial">Historial</string>
+    <string name="history_tab">History</string>
+    <string name="graficas">Gráficas</string>
+    <string name="graphs">Graphs</string>
+    <string name="seleccione_embalse">Seleccione un Embalse:</string>
+    <string name="select_reservoir">Select a Reservoir:</string>
+    <string name="desborde">Desborde</string>
+    <string name="seguridad">Seguridad</string>
+    <string name="observacion">Observacion</string>
+    <string name="ajuste">Ajuste</string>
+    <string name="control">Control</string>
+    <string name="nivelesdealerta">Niveles de Alerta:</string>
+    <string name="alert_levels">Alert Levels:</string>
+    <string name="DamImage">Imagen de Embalse</string>
+    <string name="fecha">Fecha</string>
+    <string name="metros">Metros</string>
+    <string name="lastHour">lastHour</string>
+    <string name="droporincrease">DropOrIncrease</string>
+    <string name="_7days_spanish">7 días</string>
+    <string name="_14days_spanish">14 días</string>
+    <string name="_30days_spanish">30 días</string>
+    <string name="_60days_spanish">60 días</string>
+    <string name="_90days_spanish">90 días</string>
+    <string name="_7days_english">7 days</string>
+    <string name="_14days_english">14 days</string>
+    <string name="_30days_english">30 days</string>
+    <string name="_60days_english">60 days</string>
+    <string name="_90days_english">90 days</string>
+    <string name="same_spanish">El embalse se ha mantenido igual</string>
+    <string name="same_english">The reservoir has not increased or decreased</string>
+    <string name="no_data_last_hour_spanish">No hay lectura en la pasada hora</string>
+    <string name="no_data_last_hour_english">There\'s no data from the last hour</string>
+    <string name="no_data_right_now_spanish">No hay lectura disponible en estos momentos</string>
+    <string name="no_data_right_now_english">There\'s no reservoir statistics available at this moment</string>
+    <string name="try_later_spanish">Por favor, intente mas tarde</string>
+    <string name="try_later_english">Please try again later.</string>
+</resources>
