@@ -41,6 +41,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 /**
  * Created by Moises Cardona on 2/7/2017.
@@ -276,7 +277,7 @@ public class DamMoreInfoTab extends AppCompatActivity implements TabLayout.OnTab
             } else {
                 tabLayout.addTab(tabLayout.newTab().setText(R.string.data));
                 tabLayout.addTab(tabLayout.newTab().setText(R.string.more_data));
-                tabLayout.addTab(tabLayout.newTab().setText(R.string.history));
+                tabLayout.addTab(tabLayout.newTab().setText(R.string.history_tab));
                 tabLayout.addTab(tabLayout.newTab().setText(R.string.graphs));
                 tabLayout.addTab(tabLayout.newTab().setText(R.string.map));
             }
@@ -398,12 +399,15 @@ public class DamMoreInfoTab extends AppCompatActivity implements TabLayout.OnTab
                 } else {
                     publishProgress("Loading... Step 2 of 3");
                 }
+                Pattern DOUBLE = Pattern.compile("\\d");
                 while ((line = br.readLine()) != null) {
                     if (!line.contains("#")) {
                         currentline = line.split("\t");
                         if (currentline.length >= 5) {
-                            time.add(currentline[2]);
-                            meters.add(currentline[4]);
+                            if (DOUBLE.matcher(currentline[4]).find()) {
+                                time.add(currentline[2]);
+                                meters.add(currentline[4]);
+                            }
                         }
                     }
                 }
