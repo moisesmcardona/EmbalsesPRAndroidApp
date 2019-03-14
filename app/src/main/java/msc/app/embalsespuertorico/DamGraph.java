@@ -30,39 +30,39 @@ import java.util.Locale;
 public class DamGraph extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.damgraph, container, false);
-        GraphView graph7days = v.findViewById(R.id.graph7days);
-        GraphView graph14days = v.findViewById(R.id.graph14days);
-        GraphView graph30days = v.findViewById(R.id.graph30days);
-        GraphView graph60days = v.findViewById(R.id.graph60days);
-        GraphView graph90days = v.findViewById(R.id.graph90days);
-        final TextView DamName = v.findViewById(R.id.embalse);
-        final TextView Days7Text = v.findViewById(R.id.textView2);
-        final TextView Days14Text = v.findViewById(R.id.fecha);
-        final TextView Days30Text = v.findViewById(R.id.textView4);
-        final TextView Days60Text = v.findViewById(R.id.textView5);
-        final TextView Days90Text = v.findViewById(R.id.textView6);
-        final AdView mAdView = v.findViewById(R.id.graphad);
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice("03929FBEA0721F82E4AEE15546DBB5DC").build();
-        mAdView.loadAd(adRequest);
-        app_settings as = new app_settings(getActivity());
-        if (as.getLanguage().equals("Spanish")) {
-            Days7Text.setText(R.string._7days_spanish);
-            Days14Text.setText(R.string._14days_spanish);
-            Days30Text.setText(R.string._30days_spanish);
-            Days60Text.setText(R.string._60days_spanish);
-            Days90Text.setText(R.string._90days_spanish);
-        } else {
-            Days7Text.setText(R.string._7days_english);
-            Days14Text.setText(R.string._14days_english);
-            Days30Text.setText(R.string._30days_english);
-            Days60Text.setText(R.string._60days_english);
-            Days90Text.setText(R.string._90days_english);
-        }
-        DateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US);
-        SimpleDateFormat timeBack = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US);
-        String getDate = DamMoreInfoTab.time.get(DamMoreInfoTab.time.size() - 1);
-        DamName.setText(DamMoreInfoTab.damNameToDisplay);
         try {
+            GraphView graph7days = v.findViewById(R.id.graph7days);
+            GraphView graph14days = v.findViewById(R.id.graph14days);
+            GraphView graph30days = v.findViewById(R.id.graph30days);
+            GraphView graph60days = v.findViewById(R.id.graph60days);
+            GraphView graph90days = v.findViewById(R.id.graph90days);
+            final TextView DamName = v.findViewById(R.id.embalse);
+            final TextView Days7Text = v.findViewById(R.id.textView2);
+            final TextView Days14Text = v.findViewById(R.id.fecha);
+            final TextView Days30Text = v.findViewById(R.id.textView4);
+            final TextView Days60Text = v.findViewById(R.id.textView5);
+            final TextView Days90Text = v.findViewById(R.id.textView6);
+            final AdView mAdView = v.findViewById(R.id.graphad);
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice("03929FBEA0721F82E4AEE15546DBB5DC").build();
+            mAdView.loadAd(adRequest);
+            app_settings as = new app_settings(getActivity());
+            if (as.getLanguage().equals("Spanish")) {
+                Days7Text.setText(R.string._7days_spanish);
+                Days14Text.setText(R.string._14days_spanish);
+                Days30Text.setText(R.string._30days_spanish);
+                Days60Text.setText(R.string._60days_spanish);
+                Days90Text.setText(R.string._90days_spanish);
+            } else {
+                Days7Text.setText(R.string._7days_english);
+                Days14Text.setText(R.string._14days_english);
+                Days30Text.setText(R.string._30days_english);
+                Days60Text.setText(R.string._60days_english);
+                Days90Text.setText(R.string._90days_english);
+            }
+            DateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US);
+            SimpleDateFormat timeBack = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US);
+            String getDate = DamMoreInfoTab.time.get(DamMoreInfoTab.time.size() - 1);
+            DamName.setText(DamMoreInfoTab.damNameToDisplay);
             Date d = f.parse(getDate);
             Date DateRightNow = new Date(d.getTime());
             ArrayList<Date> dayArray = new ArrayList<>();
@@ -191,6 +191,7 @@ public class DamGraph extends Fragment {
             graph90days.getViewport().setMinX(dayArray.get(89).getTime());
             graph90days.getViewport().setMaxX(DateRightNow.getTime());
             graph90days.getViewport().setXAxisBoundsManual(true);
+
         } catch (
                 Exception e) {
             e.printStackTrace();

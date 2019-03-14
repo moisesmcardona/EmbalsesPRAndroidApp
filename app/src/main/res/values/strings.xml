@@ -69,8 +69,8 @@
         <item>Change Front Page</item>
         <item>Privacy Policy</item>
     </string-array>
-    <string name="acerca_de">Desarrollado por: Moisés Cardona\nVersion 1.8.5\n©2015&#8211;2019 Todos los Derechos Reservados</string>
-    <string name="about_app">"Developed by: Moisés Cardona\nVersion 1.8.5\n©2015&#8211;2019 All Rights Reserved"</string>
+    <string name="acerca_de">Desarrollado por: Moisés Cardona\nVersion 1.8.6\n©2015&#8211;2019 Todos los Derechos Reservados</string>
+    <string name="about_app">"Developed by: Moisés Cardona\nVersion 1.8.6\n©2015&#8211;2019 All Rights Reserved"</string>
     <string name="website_url">https://moisescardona.me</string>
     <string name="title_activity_dam_maps">Embalses de Puerto Rico</string>
     <string name="title_activity_look_in_map">Embalses de Puerto Rico</string>
@@ -102,7 +102,7 @@
     <string name="pasados_30_dias">Pasados 30 días</string>
     <string name="last_30_days">Last 30 days</string>
     <string name="pasados_60_dias">Pasados 6 días</string>
-    <string name="last_60_days">Last_60_days</string>
+    <string name="last_60_days">Last 60 days</string>
     <string name="pasados_90_dias">Pasados 90 días</string>
     <string name="last_90_days">Last 90 days</string>
     <string name="lista">Lista</string>

@@ -22,17 +22,17 @@ public class app_settings extends Activity {
     private String language;
     private int defaultView;
 
-    public app_settings(){
+    public app_settings() {
 
     }
 
     public app_settings(Activity activity) {
-        settings  = activity.getSharedPreferences("embalses_pr", MODE_PRIVATE);
+        settings = activity.getSharedPreferences("embalses_pr", MODE_PRIVATE);
         language = settings.getString("Language", null);
         defaultView = settings.getInt("DefaultView", 0);
     }
 
-    public void initialize(Activity activity , Class activityClass) {
+    public void initialize(Activity activity, Class activityClass) {
         if (language == null) {
             SharedPreferences.Editor editor = settings.edit();
             language = "Spanish";
@@ -58,8 +58,10 @@ public class app_settings extends Activity {
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putString("Language", language);
                 editor.apply();
-                if (activity != null)
+                if (activity != null) {
                     activity.startActivity(new Intent(activity, activityClass));
+                    finish();
+                }
             }
         });
         builder.show();
@@ -67,15 +69,15 @@ public class app_settings extends Activity {
 
     public void setDefaultView(final Activity activity, final Class activityClass) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        CharSequence languageSelection[];
+        CharSequence DefaultViewSelection[];
         if (language.equals("Spanish")) {
-            languageSelection = new CharSequence[]{"Lista", "Mapa"};
+            DefaultViewSelection = new CharSequence[]{"Lista", "Mapa"};
             builder.setTitle("Mostrar Lista o Mapa al abrir app:");
         } else {
-            languageSelection = new CharSequence[]{"List", "Map"};
+            DefaultViewSelection = new CharSequence[]{"List", "Map"};
             builder.setTitle("Show map or list when app is launched");
         }
-        builder.setItems(languageSelection, new DialogInterface.OnClickListener() {
+        builder.setItems(DefaultViewSelection, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0) {

@@ -15,7 +15,10 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+
+
 public class MainActivity extends Fragment {
+    public static Intent damdata;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_main, container, false);
@@ -36,7 +39,7 @@ public class MainActivity extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
-                    Intent damdata = new Intent(getActivity(), DamMoreInfoTab.class);
+                    damdata = new Intent(getActivity(), DamMoreInfoTab.class);
                     switch (position) {
                         case 0: //Caonillas
                             damdata.putExtra("DamID", "50026140");

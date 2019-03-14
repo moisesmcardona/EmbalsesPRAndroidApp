@@ -2,6 +2,7 @@ package msc.app.embalsespuertorico;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -85,7 +86,7 @@ public class DamMoreInfoTab extends AppCompatActivity implements TabLayout.OnTab
     public void onTabReselected(TabLayout.Tab tab) {
 
     }
-
+    private Bundle extras;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +101,7 @@ public class DamMoreInfoTab extends AppCompatActivity implements TabLayout.OnTab
         mInterstitialAd.setAdUnitId("ca-app-pub-1744946688565368/6370827222");
         mInterstitialAd.loadAd(new AdRequest.Builder().addTestDevice("03929FBEA0721F82E4AEE15546DBB5DC").build());
 
-        Bundle extras = getIntent().getExtras();
+        extras = getIntent().getExtras();
         if (extras != null) {
             damvalue = extras.getString("DamID");
             if (damvalue != null) {
@@ -785,7 +786,6 @@ public class DamMoreInfoTab extends AppCompatActivity implements TabLayout.OnTab
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-
         //noinspection SimplifiableIfStatement
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -796,7 +796,13 @@ public class DamMoreInfoTab extends AppCompatActivity implements TabLayout.OnTab
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
+        if (mDrawerToggle != null)
+            mDrawerToggle.syncState();
+        else {
+            Intent intent = MainActivity.damdata;
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override
