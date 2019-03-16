@@ -1,6 +1,6 @@
 # Embalses de Puerto Rico (Android App)
 
-Este repositorio es de la aplicación *Embalses de Puerto Rico* para Android.
+Este repositorio es de la aplicación **Embalses de Puerto Rico** para Android.
 
 Escrito en Java usando Android Studio.
 
