@@ -4,14 +4,14 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "30.0.1"
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "msc.app.embalsespuertorico"
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 25
-        versionName "1.8.8"
+        versionCode 26
+        versionName "1.8.9"
         multiDexEnabled true
     }
     buildTypes {
@@ -35,7 +35,7 @@ dependencies {
     implementation files('YouTubeAndroidPlayerApi.jar')
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    implementation 'com.google.firebase:firebase-core:17.4.3'
+    implementation 'com.google.firebase:firebase-core:17.4.4'
     implementation 'com.google.firebase:firebase-ads:19.2.0'
     implementation 'com.jjoe64:graphview:4.0.1'
     implementation 'com.google.android.material:material:1.1.0'
