@@ -39,7 +39,7 @@
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden"/>
         <activity
-            android:name=".drawerItems"
+            android:name=".DrawerItems"
             android:label="@string/app_name"
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden"/>

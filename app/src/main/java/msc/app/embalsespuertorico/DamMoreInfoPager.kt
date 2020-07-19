@@ -6,16 +6,16 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.PagerAdapter
 
 //Extending FragmentStatePagerAdapter
-class DamMoreInfoPager(fm: FragmentManager, private val tabCount: Int) : FragmentStatePagerAdapter(fm) {
+class DamMoreInfoPager(fm: FragmentManager, private val tabCount: Int) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getItem(position: Int): Fragment {
-        when (position) {
-            0 -> return GetDamInfoAndShow()
-            1 -> return DamMoreInfoFragment()
-            2 -> return DamHistoryFragment()
-            3 -> return DamGraph()
-            4 -> return DamMaps()
-            else -> return GetDamInfoAndShow()
+        return when (position) {
+            0 -> GetDamInfoAndShow()
+            1 -> DamMoreInfoFragment()
+            2 -> DamHistoryFragment()
+            3 -> DamGraph()
+            4 -> DamMaps()
+            else -> GetDamInfoAndShow()
         }
     }
 

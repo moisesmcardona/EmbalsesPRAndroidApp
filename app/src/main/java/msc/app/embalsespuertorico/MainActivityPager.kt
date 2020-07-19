@@ -9,13 +9,13 @@ import androidx.viewpager.widget.PagerAdapter
  * Created by Moises Cardona on 2/8/2017.
  */
 
-class MainActivityPager(fm: FragmentManager, private val tabCount: Int) : FragmentStatePagerAdapter(fm) {
+class MainActivityPager(fm: FragmentManager, private val tabCount: Int) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getItem(position: Int): Fragment {
-        when (position) {
-            0 -> return MainActivity()
-            1 -> return LookInMap()
-            else -> return MainActivity()
+        return when (position) {
+            0 -> MainActivity()
+            1 -> LookInMap()
+            else -> MainActivity()
         }
     }
 

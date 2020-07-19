@@ -16,8 +16,6 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 
-import com.google.android.gms.ads.MobileAds
-
 class MainActivityTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
     private var mDrawerLayout: DrawerLayout? = null
     private var mDrawerList: ListView? = null
@@ -40,18 +38,15 @@ class MainActivityTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val tabLayout: TabLayout
-        val DrawerArrayList: Array<String>
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mainactivitytablayout)
-        MobileAds.initialize(this, "ca-app-pub-1744946688565368~1848798483")
         //Adding toolbar to the activity
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         val settings = app_settings(this)
         settings.initialize(this@MainActivityTab, MainActivityTab::class.java)
         //Initializing the tablayout
-        tabLayout = findViewById(R.id.tabLayout)
+        val tabLayout: TabLayout = findViewById(R.id.tabLayout)
 
         //Adding the tabs using addTab() method
         if (settings.language == "Spanish") {
@@ -74,13 +69,13 @@ class MainActivityTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
         //Adding onTabSelectedListener to swipe views
         tabLayout.addOnTabSelectedListener(this)
         viewPager!!.currentItem = settings.defaultView
-        DrawerArrayList = resources.getStringArray(R.array.drawerMainActivityList)
+        val drawerArrayList: Array<String> = resources.getStringArray(R.array.drawerMainActivityList)
         mDrawerLayout = findViewById(R.id.drawer_layout)
         mDrawerList = findViewById(R.id.left_drawer)
         mDrawerLayout!!.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START)
         // set up the drawer's list view with items and click listener
         if (settings.language == "Spanish")
-            mDrawerList!!.adapter = ArrayAdapter(this, R.layout.drawerlistbox, DrawerArrayList)
+            mDrawerList!!.adapter = ArrayAdapter(this, R.layout.drawerlistbox, drawerArrayList)
         else
             mDrawerList!!.adapter = ArrayAdapter(this, R.layout.drawerlistbox, resources.getStringArray(R.array.drawerMainActivityListEnglish))
         mDrawerList!!.onItemClickListener = DrawerItemClickListener()
@@ -149,7 +144,7 @@ class MainActivityTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
 
     private inner class DrawerItemClickListener : AdapterView.OnItemClickListener {
         override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-            val di = drawerItems()
+            val di = DrawerItems()
             di.mainDrawerItems(this@MainActivityTab, MainActivityTab::class.java, position, 0)
             selectItem(position)
         }

@@ -7,12 +7,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.RequestConfiguration
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -21,7 +19,6 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import java.util.*
 
 class LookInMap : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
@@ -29,46 +26,32 @@ class LookInMap : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListene
         val v = inflater.inflate(R.layout.activity_look_in_map, container, false)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = this.childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        val SelectDam = v.findViewById<TextView>(R.id.textView19)
-        val mAdView = v.findViewById<AdView>(R.id.mainactivityad)
-        val configuration = RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList(getString(R.string.deviceTestID))).build()
-        MobileAds.setRequestConfiguration(configuration)
-        val adRequest = AdRequest.Builder().build()
-        mAdView.loadAd(adRequest)
+        val selectDam = v.findViewById<TextView>(R.id.textView19)
+        val adFrame = v.findViewById<FrameLayout>(R.id.mainactivityad)
+        val mAdFunctions = AdFunctions()
+        mAdFunctions.loadBanner(adFrame, R.string.map2, activity as AppCompatActivity)
         val `as` = app_settings(activity!!)
         if (`as`.language == "Spanish")
-            SelectDam.setText(R.string.select_in_map_spanish)
+            selectDam.setText(R.string.select_in_map_spanish)
         else
-            SelectDam.setText(R.string.select_in_map_english)
+            selectDam.setText(R.string.select_in_map_english)
         mapFragment?.getMapAsync(this)
         return v
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        val mMap: GoogleMap
-        mMap = googleMap
-        val Carraizo = LatLng(18.32791, -66.01628)
-        mMap.addMarker(MarkerOptions().position(Carraizo).title("Carraízo"))
-        val LaPlata = LatLng(18.343, -66.23607)
-        mMap.addMarker(MarkerOptions().position(LaPlata).title("La Plata"))
-        val Cidra = LatLng(18.1969, -66.14072)
-        mMap.addMarker(MarkerOptions().position(Cidra).title("Cidra"))
-        val Patillas = LatLng(18.01774, -66.0185)
-        mMap.addMarker(MarkerOptions().position(Patillas).title("Patillas"))
-        val ToaVaca = LatLng(18.10166, -66.48902)
-        mMap.addMarker(MarkerOptions().position(ToaVaca).title("Toa Vaca"))
-        val Carite = LatLng(18.07524, -66.10683)
-        mMap.addMarker(MarkerOptions().position(Carite).title("Carite"))
-        val RioBlanco = LatLng(18.22389, -65.78142)
-        mMap.addMarker(MarkerOptions().position(RioBlanco).title("Rio Blanco"))
-        val Caonillas = LatLng(18.27654, -66.65642)
-        mMap.addMarker(MarkerOptions().position(Caonillas).title("Caonillas"))
-        val Fajardo = LatLng(18.2969, -65.65858)
-        mMap.addMarker(MarkerOptions().position(Fajardo).title("Fajardo"))
-        val Guajataca = LatLng(18.39836, -66.9227)
-        mMap.addMarker(MarkerOptions().position(Guajataca).title("Guajataca"))
-        val Cerrillos = LatLng(18.07703, -66.57547)
-        mMap.addMarker(MarkerOptions().position(Cerrillos).title("Cerrillos"))
+        val mMap: GoogleMap = googleMap
+        mMap.addMarker(MarkerOptions().position(LatLng(18.32791, -66.01628)).title("Carraízo"))
+        mMap.addMarker(MarkerOptions().position(LatLng(18.343, -66.23607)).title("La Plata"))
+        mMap.addMarker(MarkerOptions().position(LatLng(18.1969, -66.14072)).title("Cidra"))
+        mMap.addMarker(MarkerOptions().position(LatLng(18.01774, -66.0185)).title("Patillas"))
+        mMap.addMarker(MarkerOptions().position(LatLng(18.10166, -66.48902)).title("Toa Vaca"))
+        mMap.addMarker(MarkerOptions().position(LatLng(18.07524, -66.10683)).title("Carite"))
+        mMap.addMarker(MarkerOptions().position(LatLng(18.22389, -65.78142)).title("Rio Blanco"))
+        mMap.addMarker(MarkerOptions().position(LatLng(18.27654, -66.65642)).title("Caonillas"))
+        mMap.addMarker(MarkerOptions().position(LatLng(18.2969, -65.65858)).title("Fajardo"))
+        mMap.addMarker(MarkerOptions().position(LatLng(18.39836, -66.9227)).title("Guajataca"))
+        mMap.addMarker(MarkerOptions().position(LatLng(18.07703, -66.57547)).title("Cerrillos"))
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(PuertoRico))
         mMap.setOnMarkerClickListener(this)
     }

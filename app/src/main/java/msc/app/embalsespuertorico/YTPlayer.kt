@@ -16,7 +16,7 @@ class YTPlayer : YouTubeBaseActivity(), OnInitializedListener {
         this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         setContentView(R.layout.player)
         val youTubeView = findViewById<YouTubePlayerView>(R.id.youtube_view)
-        youTubeView.initialize("AIzaSyCqVJ3cBq-sqwDU2lrDTYrGjDp3AZkekEg", this)
+        youTubeView.initialize(getString(R.string.youtube_player_key), this)
         // TODO Auto-generated method stub
     }
 

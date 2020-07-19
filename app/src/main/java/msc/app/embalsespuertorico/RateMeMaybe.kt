@@ -3,13 +3,12 @@ package msc.app.embalsespuertorico
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager.NameNotFoundException
 import android.net.Uri
-import androidx.fragment.app.FragmentActivity
 import android.text.format.DateUtils
 import android.util.Log
 import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
 
 class RateMeMaybe(private val mActivity: FragmentActivity) : RateMeMaybeFragment.RMMFragInterface {
     private val mPreferences: SharedPreferences
@@ -20,7 +19,7 @@ class RateMeMaybe(private val mActivity: FragmentActivity) : RateMeMaybeFragment
     private var neutralBtn: String =  "Ahora No"
     private var negativeBtn: String =  "Nunca"
 
-    var icon: Int = 0
+    private var icon: Int = 0
 
     private var mMinLaunchesUntilInitialPrompt = 0
     private var mMinDaysUntilInitialPrompt = 0
@@ -30,28 +29,7 @@ class RateMeMaybe(private val mActivity: FragmentActivity) : RateMeMaybeFragment
 
     private var mHandleCancelAsNeutral: Boolean? = true
 
-    private var mRunWithoutPlayStore: Boolean? = false
-
     private var mListener: OnRMMUserChoiceListener? = null
-
-    /**
-     * @return the application name of the host activity
-     */
-    private val applicationName: String
-        get() {
-            val pm = mActivity.applicationContext
-                    .packageManager
-            val ai: ApplicationInfo
-            var appName: String
-            try {
-                ai = pm.getApplicationInfo(mActivity.packageName, 0)
-                appName = pm.getApplicationLabel(ai) as String
-            } catch (e: NameNotFoundException) {
-                appName = "(unknown)"
-            }
-
-            return appName
-        }
 
     /**
      * @return Whether Google Play Store is installed on device
@@ -59,11 +37,11 @@ class RateMeMaybe(private val mActivity: FragmentActivity) : RateMeMaybeFragment
     private val isPlayStoreInstalled: Boolean
         get() {
             val pacman = mActivity.packageManager
-            try {
+            return try {
                 pacman.getApplicationInfo("com.android.vending", 0)
-                return true
+                true
             } catch (e: NameNotFoundException) {
-                return false
+                false
             }
 
         }
@@ -106,35 +84,6 @@ class RateMeMaybe(private val mActivity: FragmentActivity) : RateMeMaybeFragment
     }
 
     /**
-     * @param handleCancelAsNeutral
-     * Standard is true. If set to false, a back press (or other
-     * things that lead to the dialog being cancelled), will be
-     * handled like a negative choice (click on "Never").
-     */
-    fun setHandleCancelAsNeutral(handleCancelAsNeutral: Boolean?) {
-        this.mHandleCancelAsNeutral = handleCancelAsNeutral
-    }
-
-    /**
-     * Sets an additional callback for when the user has made a choice.
-     *
-     * @param listener
-     */
-    fun setAdditionalListener(listener: OnRMMUserChoiceListener) {
-        mListener = listener
-    }
-
-    /**
-     * Standard is false. Whether the run method is executed even if no Play
-     * Store is installed on device.
-     *
-     * @param runWithoutPlayStore
-     */
-    fun setRunWithoutPlayStore(runWithoutPlayStore: Boolean?) {
-        mRunWithoutPlayStore = runWithoutPlayStore
-    }
-
-    /**
      * Actually show the dialog (if it is not currently shown)
      */
     private fun showDialog() {
@@ -148,14 +97,6 @@ class RateMeMaybe(private val mActivity: FragmentActivity) : RateMeMaybeFragment
                 positiveBtn, neutralBtn, negativeBtn, this)
         frag.show(mActivity.supportFragmentManager, "rmmFragment")
 
-    }
-
-    /**
-     * Forces the dialog to show, even if the requirements are not yet met. Does
-     * not affect prompt logs. Use with care.
-     */
-    fun forceShow() {
-        showDialog()
     }
 
     /**
@@ -218,15 +159,15 @@ class RateMeMaybe(private val mActivity: FragmentActivity) : RateMeMaybeFragment
 
     }
 
-    override fun _handleCancel() {
+    override fun handleCancel() {
         if (mHandleCancelAsNeutral!!) {
-            _handleNeutralChoice()
+            handleNeutralChoice()
         } else {
-            _handleNegativeChoice()
+            handleNegativeChoice()
         }
     }
 
-    override fun _handleNegativeChoice() {
+    override fun handleNegativeChoice() {
         val editor = mPreferences.edit()
         editor.putBoolean(PREF.DONT_SHOW_AGAIN, true)
         editor.apply()
@@ -235,13 +176,13 @@ class RateMeMaybe(private val mActivity: FragmentActivity) : RateMeMaybeFragment
         }
     }
 
-    override fun _handleNeutralChoice() {
+    override fun handleNeutralChoice() {
         if (mListener != null) {
             mListener!!.handleNeutral()
         }
     }
 
-    override fun _handlePositiveChoice() {
+    override fun handlePositiveChoice() {
         val editor = mPreferences.edit()
         editor.putBoolean(PREF.DONT_SHOW_AGAIN, true)
         editor.apply()
@@ -262,37 +203,30 @@ class RateMeMaybe(private val mActivity: FragmentActivity) : RateMeMaybeFragment
     }
 
     internal object PREF {
-        val NAME = "rate_me_maybe"
+        const val NAME = "rate_me_maybe"
 
-        val DONT_SHOW_AGAIN = "PREF_DONT_SHOW_AGAIN"
+        const val DONT_SHOW_AGAIN = "PREF_DONT_SHOW_AGAIN"
         /**
          * How many times the app was launched in total
          */
-        val TOTAL_LAUNCH_COUNT = "PREF_TOTAL_LAUNCH_COUNT"
+        const val TOTAL_LAUNCH_COUNT = "PREF_TOTAL_LAUNCH_COUNT"
         /**
          * Timestamp of when the app was launched for the first time
          */
-        val TIME_OF_ABSOLUTE_FIRST_LAUNCH = "PREF_TIME_OF_ABSOLUTE_FIRST_LAUNCH"
+        const val TIME_OF_ABSOLUTE_FIRST_LAUNCH = "PREF_TIME_OF_ABSOLUTE_FIRST_LAUNCH"
         /**
          * How many times the app was launched since the last prompt
          */
-        val LAUNCHES_SINCE_LAST_PROMPT = "PREF_LAUNCHES_SINCE_LAST_PROMPT"
+        const val LAUNCHES_SINCE_LAST_PROMPT = "PREF_LAUNCHES_SINCE_LAST_PROMPT"
         /**
          * Timestamp of the last user prompt
          */
-        val TIME_OF_LAST_PROMPT = "PREF_TIME_OF_LAST_PROMPT"
+        const val TIME_OF_LAST_PROMPT = "PREF_TIME_OF_LAST_PROMPT"
     }
 
     companion object {
-        private val TAG = "Rate Me"
+        private const val TAG = "Rate Me"
 
-        /**
-         * Reset the launch logs
-         */
-        fun resetData(activity: FragmentActivity) {
-            activity.getSharedPreferences(PREF.NAME, 0).edit().clear().apply()
-            Log.d(TAG, "Cleared RateMeMaybe shared preferences.")
-        }
     }
 
 }

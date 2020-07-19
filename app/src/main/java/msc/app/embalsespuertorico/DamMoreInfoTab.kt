@@ -67,7 +67,7 @@ class DamMoreInfoTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val DrawerArrayList: Array<String>
+        val drawerArrayList: Array<String>
         val tabLayout: TabLayout
         val root = getDir("data", Context.MODE_PRIVATE)
 
@@ -76,7 +76,7 @@ class DamMoreInfoTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
 
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd!!.adUnitId = getString(R.string.interstitialAd)
-        val configuration = RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList(getString(R.string.deviceTestID))).build()
+        val configuration = RequestConfiguration.Builder().setTestDeviceIds(listOf(getString(R.string.deviceTestID))).build()
         MobileAds.setRequestConfiguration(configuration)
         mInterstitialAd!!.loadAd(AdRequest.Builder().build())
 
@@ -274,18 +274,18 @@ class DamMoreInfoTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
             tabLayout.addOnTabSelectedListener(this)
 
             mDrawerList = findViewById(R.id.left_drawer)
-            if (!hasVideo) {
+            drawerArrayList = if (!hasVideo) {
                 if (`as`!!.language == "Spanish") {
-                    DrawerArrayList = resources.getStringArray(R.array.drawerDamListNoVideo)
+                    resources.getStringArray(R.array.drawerDamListNoVideo)
 
                 } else {
-                    DrawerArrayList = resources.getStringArray(R.array.drawerDamListNoVideoEnglish)
+                    resources.getStringArray(R.array.drawerDamListNoVideoEnglish)
                 }
             } else {
                 if (`as`!!.language == "Spanish") {
-                    DrawerArrayList = resources.getStringArray(R.array.drawerDamListWithVideo)
+                    resources.getStringArray(R.array.drawerDamListWithVideo)
                 } else {
-                    DrawerArrayList = resources.getStringArray(R.array.drawerDamListWithVideoEnglish)
+                    resources.getStringArray(R.array.drawerDamListWithVideoEnglish)
                 }
             }
 
@@ -293,14 +293,13 @@ class DamMoreInfoTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
             mDrawerList = findViewById(R.id.left_drawer)
             mDrawerLayout!!.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START)
             // set up the drawer's list view with items and click listener
-            mDrawerList!!.adapter = ArrayAdapter(this, R.layout.drawerlistbox, DrawerArrayList)
+            mDrawerList!!.adapter = ArrayAdapter(this, R.layout.drawerlistbox, drawerArrayList)
             mDrawerList!!.onItemClickListener = DrawerItemClickListener()
             mDrawerToggle = object : ActionBarDrawerToggle(this, mDrawerLayout, 0, 0) {
                 override fun onDrawerClosed(drawerView: View) {
                     if (supportActionBar != null)
                         supportActionBar!!.setTitle(R.string.app_name)
                     window.decorView.findViewById<View>(android.R.id.content).invalidate()
-                    //mAdView.bringToFront();
                 }
 
                 override fun onDrawerOpened(drawerView: View) {
@@ -378,12 +377,12 @@ class DamMoreInfoTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
                 } else {
                     publishProgress("Loading... Step 2 of 3")
                 }
-                val DOUBLE = Pattern.compile("\\d")
-                br.lineSequence().forEach {
+                val double = Pattern.compile("\\d")
+                br.lineSequence().forEach { it ->
                     if (!it.contains("#") && it.contains("USGS")) {
                         currentline = it.split("\t".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
                         if (currentline.size >= 5) {
-                            if (DOUBLE.matcher(currentline[4]).find()) {
+                            if (double.matcher(currentline[4]).find()) {
                                 time.add(currentline[2])
                                 meters.add(currentline[4])
                             }
@@ -403,16 +402,16 @@ class DamMoreInfoTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
                     out1.close()
                     getDate = time[time.size - 1]
                     val f = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US)
-                    val d = f.parse(getDate)
-                    val oneHourBack = Date(d.time - 60.toLong() * 60 * 1000)
+                    val d: Date? = f.parse(getDate)
+                    val oneHourBack = Date(d!!.time - 60.toLong() * 60 * 1000)
                     val sixHourBack = Date(d.time - 60.toLong() * 60 * 1000 * 6)
                     val twelveHourBack = Date(d.time - 60.toLong() * 60 * 1000 * 12)
                     val twentyfourHourBack = Date(d.time - 60.toLong() * 60 * 1000 * 24)
                     val sevenDaysBack = Date(d.time - 60.toLong() * 60 * 1000 * 24 * 7)
-                    val Days14Back = Date(d.time - 60.toLong() * 60 * 1000 * 24 * 14)
-                    val Days30Back = Date(d.time - 60.toLong() * 60 * 1000 * 24 * 30)
-                    val Days60Back = Date(d.time - 60.toLong() * 60 * 1000 * 24 * 60)
-                    val Days90Back = Date(d.time - 60.toLong() * 60 * 1000 * 24 * 90)
+                    val days14Back = Date(d.time - 60.toLong() * 60 * 1000 * 24 * 14)
+                    val days30Back = Date(d.time - 60.toLong() * 60 * 1000 * 24 * 30)
+                    val days60Back = Date(d.time - 60.toLong() * 60 * 1000 * 24 * 60)
+                    val days90Back = Date(d.time - 60.toLong() * 60 * 1000 * 24 * 90)
                     val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.US)
                     val dateFormatterEnglish = SimpleDateFormat("MM/dd/yyyy", Locale.US)
                     val timeFormatter = SimpleDateFormat("hh:mm aa", Locale.US)
@@ -425,10 +424,10 @@ class DamMoreInfoTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
                     val twelveHoursBackAsString = timeBack.format(twelveHourBack)
                     val twentyfourHoursBackAsString = timeBack.format(twentyfourHourBack)
                     val sevenDaysBackAsString = timeBack.format(sevenDaysBack)
-                    val DaysBack14AsString = timeBack.format(Days14Back)
-                    val DaysBack30AsString = timeBack.format(Days30Back)
-                    val DaysBack60AsString = timeBack.format(Days60Back)
-                    val DaysBack90AsString = timeBack.format(Days90Back)
+                    val daysBack14AsString = timeBack.format(days14Back)
+                    val daysBack30AsString = timeBack.format(days30Back)
+                    val daysBack60AsString = timeBack.format(days60Back)
+                    val daysBack90AsString = timeBack.format(days90Back)
                     damdate = "Lectura realizada el $dateAsString a las $timeAsString"
                     damdateEnglish = "Reservoir statistics made at $timeAsString on $dateAsStringEnglish"
                     val outputStream2 = FileOutputStream(DateFileToUse, false)
@@ -441,56 +440,56 @@ class DamMoreInfoTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
                     out2English.close()
                     noDataAvailable = false
                     for (i in 0 until time.size - 1) {
-                        var FileToUse: String? = null
+                        var fileToUse: String? = null
                         var dataToWrite: String? = null
                         if (time[i] == oneHourBackAsString) {
                             damlasthour = meters[i]
-                            FileToUse = LastHourFileToUse
+                            fileToUse = LastHourFileToUse
                             dataToWrite = damlasthour
                             lastHourAvailable = true
                         } else if (time[i] == sixHoursBackAsString) {
                             dam6hours = meters[i]
-                            FileToUse = SixHoursFileToUse
+                            fileToUse = SixHoursFileToUse
                             dataToWrite = dam6hours
                             sixHoursAvailable = true
                         } else if (time[i] == twelveHoursBackAsString) {
                             dam12hours = meters[i]
-                            FileToUse = TwelveHoursFileToUse
+                            fileToUse = TwelveHoursFileToUse
                             dataToWrite = dam12hours
                             twelveHoursAvailable = true
                         } else if (time[i] == twentyfourHoursBackAsString) {
                             dam24hours = meters[i]
-                            FileToUse = TwentyFourHoursFileToUse
+                            fileToUse = TwentyFourHoursFileToUse
                             dataToWrite = dam24hours
                             twentyFourHoursAvailable = true
                         } else if (time[i] == sevenDaysBackAsString) {
                             dam7days = meters[i]
-                            FileToUse = SevenDaysFileToUse
+                            fileToUse = SevenDaysFileToUse
                             dataToWrite = dam7days
                             sevenDaysAvailable = true
-                        } else if (time[i] == DaysBack14AsString) {
+                        } else if (time[i] == daysBack14AsString) {
                             dam14days = meters[i]
-                            FileToUse = days14filetouse
+                            fileToUse = days14filetouse
                             dataToWrite = dam14days
                             days14available = true
-                        } else if (time[i] == DaysBack30AsString) {
+                        } else if (time[i] == daysBack30AsString) {
                             dam30days = meters[i]
-                            FileToUse = days30filetouse
+                            fileToUse = days30filetouse
                             dataToWrite = dam30days
                             days30available = true
-                        } else if (time[i] == DaysBack60AsString) {
+                        } else if (time[i] == daysBack60AsString) {
                             dam60days = meters[i]
-                            FileToUse = days60filetouse
+                            fileToUse = days60filetouse
                             dataToWrite = dam60days
                             days60available = true
-                        } else if (time[i] == DaysBack90AsString) {
+                        } else if (time[i] == daysBack90AsString) {
                             dam90days = meters[i]
-                            FileToUse = days90filetouse
+                            fileToUse = days90filetouse
                             dataToWrite = dam90days
                             days90available = true
                         }
-                        if (FileToUse != null && dataToWrite != null) {
-                            val outputStream3 = FileOutputStream(FileToUse, false)
+                        if (fileToUse != null && dataToWrite != null) {
+                            val outputStream3 = FileOutputStream(fileToUse, false)
                             val out3 = OutputStreamWriter(outputStream3)
                             out3.write(dataToWrite)
                             out3.close()
@@ -508,8 +507,8 @@ class DamMoreInfoTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
                     var timeFormattedAsStringEnglish: String
                     for (i in time.size - 1 downTo 2) {
                         getDate2 = time[i]
-                        val d2 = f2.parse(getDate2)
-                        timeFormattedAsString = timeFormatted.format(d2)
+                        val d2: Date? = f2.parse(getDate2)
+                        timeFormattedAsString = timeFormatted.format(d2!!)
                         timeFormattedAsStringEnglish = timeFormattedEnglish.format(d2)
                         dataToWrite = timeFormattedAsString + " - " + meters[i] + " metros"
                         dataToWriteEnglish = timeFormattedAsStringEnglish + " - " + meters[i] + " meters"
@@ -529,22 +528,22 @@ class DamMoreInfoTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
                 }
             } catch (e: Exception) {
                 Log.e("Error", e.toString())
-                val MetersFileLocation = File(MetersFileToUse)
-                val DateFileLocation = File(DateFileToUse)
-                val DateFileLocationEnglish = File(DateFileToUseEnglish)
-                val LastHourFileLocation = File(LastHourFileToUse)
-                val SixHoursFileLocation = File(SixHoursFileToUse)
-                val TwelveHoursFileLocation = File(TwelveHoursFileToUse)
-                val TwentyFourHoursFileLocation = File(TwentyFourHoursFileToUse)
-                val SevenDaysFileLocation = File(SevenDaysFileToUse)
-                val Days14FileLocation = File(days14filetouse)
-                val Days30FileLocation = File(days30filetouse)
-                val Days60FileLocation = File(days60filetouse)
-                val Days90FileLocation = File(days90filetouse)
-                val HistoryFileLocation = File(HistoryFileToUse)
-                val HistoryMetersFileLocation = File(HistoryMeterFileToUse)
+                val metersFileLocation = File(MetersFileToUse)
+                val dateFileLocation = File(DateFileToUse)
+                val dateFileLocationEnglish = File(DateFileToUseEnglish)
+                val lastHourFileLocation = File(LastHourFileToUse)
+                val sixHoursFileLocation = File(SixHoursFileToUse)
+                val twelveHoursFileLocation = File(TwelveHoursFileToUse)
+                val twentyFourHoursFileLocation = File(TwentyFourHoursFileToUse)
+                val sevenDaysFileLocation = File(SevenDaysFileToUse)
+                val days14FileLocation = File(days14filetouse)
+                val days30FileLocation = File(days30filetouse)
+                val days60FileLocation = File(days60filetouse)
+                val days90FileLocation = File(days90filetouse)
+                val historyFileLocation = File(HistoryFileToUse)
+                val historyMetersFileLocation = File(HistoryMeterFileToUse)
                 try {
-                    if (MetersFileLocation.exists() && DateFileLocation.exists() && DateFileLocationEnglish.exists()) {
+                    if (metersFileLocation.exists() && dateFileLocation.exists() && dateFileLocationEnglish.exists()) {
                         noDataAvailable = false
                         val in1 = BufferedReader(FileReader(MetersFileToUse))
                         in1.lineSequence().forEach {
@@ -561,7 +560,7 @@ class DamMoreInfoTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
                             damdateEnglish = it
                         }
                         in2English.close()
-                        if (LastHourFileLocation.exists()) {
+                        if (lastHourFileLocation.exists()) {
                             val in3 = BufferedReader(FileReader(LastHourFileToUse))
                             in3.lineSequence().forEach {
                                 damlasthour = it
@@ -574,7 +573,7 @@ class DamMoreInfoTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
                         } else {
                             lastHourAvailable = false
                         }
-                        if (SixHoursFileLocation.exists()) {
+                        if (sixHoursFileLocation.exists()) {
                             val in4 = BufferedReader(FileReader(SixHoursFileToUse))
                             in4.lineSequence().forEach {
                                 dam6hours = it
@@ -587,7 +586,7 @@ class DamMoreInfoTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
                         } else {
                             sixHoursAvailable = false
                         }
-                        if (TwelveHoursFileLocation.exists()) {
+                        if (twelveHoursFileLocation.exists()) {
                             val in5 = BufferedReader(FileReader(TwelveHoursFileToUse))
                             in5.lineSequence().forEach {
                                 dam12hours = it
@@ -600,7 +599,7 @@ class DamMoreInfoTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
                         } else {
                             twelveHoursAvailable = false
                         }
-                        if (TwentyFourHoursFileLocation.exists()) {
+                        if (twentyFourHoursFileLocation.exists()) {
                             val in6 = BufferedReader(FileReader(TwentyFourHoursFileToUse))
                             in6.lineSequence().forEach {
                                 dam24hours = it
@@ -613,7 +612,7 @@ class DamMoreInfoTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
                         } else {
                             twentyFourHoursAvailable = false
                         }
-                        if (SevenDaysFileLocation.exists()) {
+                        if (sevenDaysFileLocation.exists()) {
                             val in7 = BufferedReader(FileReader(SevenDaysFileToUse))
                             in7.lineSequence().forEach {
                                 dam7days = it
@@ -625,7 +624,7 @@ class DamMoreInfoTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
                             in7.close()
                         } else
                             sevenDaysAvailable = false
-                        if (Days14FileLocation.exists()) {
+                        if (days14FileLocation.exists()) {
                             val in8 = BufferedReader(FileReader(days14filetouse))
                             in8.lineSequence().forEach {
                                 dam14days = it
@@ -637,7 +636,7 @@ class DamMoreInfoTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
                             in8.close()
                         } else
                             days14available = false
-                        if (Days30FileLocation.exists()) {
+                        if (days30FileLocation.exists()) {
                             val in9 = BufferedReader(FileReader(days30filetouse))
                             in9.lineSequence().forEach {
                                 dam30days = it
@@ -649,7 +648,7 @@ class DamMoreInfoTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
                             in9.close()
                         } else
                             days30available = false
-                        if (Days60FileLocation.exists()) {
+                        if (days60FileLocation.exists()) {
                             val in10 = BufferedReader(FileReader(days60filetouse))
                             in10.lineSequence().forEach {
                                 dam60days = it
@@ -661,7 +660,7 @@ class DamMoreInfoTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
                             in10.close()
                         } else
                             days60available = false
-                        if (Days90FileLocation.exists()) {
+                        if (days90FileLocation.exists()) {
                             val in11 = BufferedReader(FileReader(days90filetouse))
                             in11.lineSequence().forEach {
                                 dam90days = it
@@ -673,7 +672,7 @@ class DamMoreInfoTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
                             in11.close()
                         } else
                             days90available = false
-                        if (HistoryFileLocation.exists() && HistoryMetersFileLocation.exists()) {
+                        if (historyFileLocation.exists() && historyMetersFileLocation.exists()) {
                             val in12 = BufferedReader(FileReader(HistoryFileToUse))
                             val in12English = BufferedReader(FileReader(HistoryFileToUseEnglish))
                             val in13 = BufferedReader(FileReader(HistoryMeterFileToUse))
@@ -775,7 +774,7 @@ class DamMoreInfoTab : AppCompatActivity(), TabLayout.OnTabSelectedListener {
 
     private inner class DrawerItemClickListener : AdapterView.OnItemClickListener {
         override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-            val di = drawerItems()
+            val di = DrawerItems()
             di.mainDrawerItems(this@DamMoreInfoTab, DamMoreInfoTab::class.java, position, 999, hasVideo, VideoID)
             selectItem(position)
         }

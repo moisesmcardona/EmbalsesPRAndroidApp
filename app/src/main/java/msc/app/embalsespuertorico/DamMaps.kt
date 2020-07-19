@@ -1,15 +1,12 @@
 package msc.app.embalsespuertorico
 
-import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.RequestConfiguration
+import android.widget.FrameLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -17,17 +14,14 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import java.util.*
 
 class DamMaps : Fragment(), OnMapReadyCallback {
     private var currentDam: String? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.dammaplayout, container, false)
-        val mAdView = v.findViewById<AdView>(R.id.admap2)
-        val configuration = RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList(getString(R.string.deviceTestID))).build()
-        MobileAds.setRequestConfiguration(configuration)
-        val adRequest = AdRequest.Builder().build()
-        mAdView.loadAd(adRequest)
+        val adFrame = v.findViewById<FrameLayout>(R.id.admap2)
+        val mAdFunctions = AdFunctions()
+        mAdFunctions.loadBanner(adFrame, R.string.map1, activity as AppCompatActivity)
         currentDam = DamMoreInfoTab.damNameToDisplay
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = this.childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
@@ -37,8 +31,7 @@ class DamMaps : Fragment(), OnMapReadyCallback {
 
 
     override fun onMapReady(googleMap: GoogleMap) {
-        val mMap: GoogleMap
-        mMap = googleMap
+        val mMap: GoogleMap = googleMap
         mMap.clear()
         if (currentDam == "Carraízo") {
             val dam = LatLng(18.32791, -66.01628)

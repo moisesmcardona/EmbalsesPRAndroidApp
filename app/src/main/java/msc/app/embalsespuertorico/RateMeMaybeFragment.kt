@@ -20,13 +20,13 @@ class RateMeMaybeFragment : DialogFragment(), OnClickListener, OnCancelListener 
     private var negativeBtn: String? = null
 
     interface RMMFragInterface {
-        fun _handlePositiveChoice()
+        fun handlePositiveChoice()
 
-        fun _handleNeutralChoice()
+        fun handleNeutralChoice()
 
-        fun _handleNegativeChoice()
+        fun handleNegativeChoice()
 
-        fun _handleCancel()
+        fun handleCancel()
     }
 
     fun setData(customIcon: Int, title: String, message: String,
@@ -65,14 +65,14 @@ class RateMeMaybeFragment : DialogFragment(), OnClickListener, OnCancelListener 
     }
 
     override fun onCancel(dialog: DialogInterface) {
-        mInterface!!._handleCancel()
+        mInterface!!.handleCancel()
     }
 
     override fun onClick(dialog: DialogInterface, choice: Int) {
         when (choice) {
-            DialogInterface.BUTTON_POSITIVE -> mInterface!!._handlePositiveChoice()
-            DialogInterface.BUTTON_NEUTRAL -> mInterface!!._handleNeutralChoice()
-            DialogInterface.BUTTON_NEGATIVE -> mInterface!!._handleNegativeChoice()
+            DialogInterface.BUTTON_POSITIVE -> mInterface!!.handlePositiveChoice()
+            DialogInterface.BUTTON_NEUTRAL -> mInterface!!.handleNeutralChoice()
+            DialogInterface.BUTTON_NEGATIVE -> mInterface!!.handleNegativeChoice()
         }
     }
 

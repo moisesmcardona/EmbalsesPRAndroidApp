@@ -1,6 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
         android:id="@+id/embalse"
@@ -21,13 +21,10 @@
         android:layout_marginRight="30dp">
 
     </ListView>
-    <com.google.android.gms.ads.AdView
+    <FrameLayout
         android:id="@+id/mainactivityad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        ads:adSize="SMART_BANNER"
-        ads:adUnitId="@string/mainad">
-    </com.google.android.gms.ads.AdView>
+        android:layout_centerInParent="true" />
 </RelativeLayout>

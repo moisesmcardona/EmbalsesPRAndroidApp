@@ -11,16 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.TextView
-
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.RequestConfiguration
-import java.util.*
+import android.widget.*
 
 /**
  * Created by Moisés Cardona on 9/25/2015.
@@ -31,12 +22,17 @@ class AboutApp : AppCompatActivity() {
     private var mDrawerList: ListView? = null
     private var mDrawerToggle: ActionBarDrawerToggle? = null
 
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.aboutapp)
-        val OpenPage = findViewById<TextView>(R.id.textView4)
+        val websiteText = findViewById<TextView>(R.id.textView4)
         val textview = findViewById<TextView>(R.id.textView)
-        val mAdView = findViewById<AdView>(R.id.aboutad)
+        val adFrame = findViewById<FrameLayout>(R.id.aboudAd)
+        val mAdFunctions = AdFunctions()
+        mAdFunctions.loadBanner(adFrame, R.string.aboutad, this)
         mDrawerList = findViewById(R.id.left_drawer)
         val `as` = app_settings(this)
         if (`as`.language == "Spanish") {
@@ -46,21 +42,19 @@ class AboutApp : AppCompatActivity() {
             mDrawerList!!.adapter = ArrayAdapter(this, R.layout.drawerlistbox, resources.getStringArray(R.array.drawerMainActivityList))
             textview.setText(R.string.about_app)
         }
-        val configuration = RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList(getString(R.string.deviceTestID))).build()
-        MobileAds.setRequestConfiguration(configuration)
-        val adRequest = AdRequest.Builder().build()
-        mAdView.loadAd(adRequest)
+
+
         mDrawerLayout = findViewById(R.id.drawer_layout)
         mDrawerList = findViewById(R.id.left_drawer)
         mDrawerLayout!!.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START)
-        mDrawerList!!.setOnItemClickListener(DrawerItemClickListener())
+        mDrawerList!!.onItemClickListener = DrawerItemClickListener()
         mDrawerToggle = object : ActionBarDrawerToggle(this, mDrawerLayout, 0, 0) {
             override fun onDrawerClosed(view: View) {
                 if (supportActionBar != null)
                     supportActionBar!!.setTitle(R.string.app_name)
                 window.decorView.findViewById<View>(android.R.id.content).invalidate()
-                OpenPage.bringToFront()
-                mAdView.bringToFront()
+                websiteText.bringToFront()
+                adFrame.bringToFront()
             }
 
             override fun onDrawerOpened(drawerView: View) {
@@ -74,8 +68,8 @@ class AboutApp : AppCompatActivity() {
                 if (offset != 0f)
                     mDrawerLayout!!.bringToFront()
                 else {
-                    OpenPage.bringToFront()
-                    mAdView.bringToFront()
+                    websiteText.bringToFront()
+                    adFrame.bringToFront()
                 }
             }
         }
@@ -92,7 +86,7 @@ class AboutApp : AppCompatActivity() {
 
     }
 
-    fun visitPage() {
+    fun visitPage(view: View) {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://moisescardona.me"))
         startActivity(browserIntent)
     }
@@ -128,7 +122,7 @@ class AboutApp : AppCompatActivity() {
 
     private inner class DrawerItemClickListener : AdapterView.OnItemClickListener {
         override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-            val di = drawerItems()
+            val di = DrawerItems()
             di.mainDrawerItems(this@AboutApp, AboutApp::class.java, position, 1)
             selectItem(position)
         }

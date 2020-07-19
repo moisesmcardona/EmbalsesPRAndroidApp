@@ -7,13 +7,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.RequestConfiguration
 import java.util.*
 
 /**
@@ -23,129 +21,125 @@ class GetDamInfoAndShow : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.dampage, container, false)
-        val DamPic = v.findViewById<ImageView>(R.id.imageView)
-        val DamName = v.findViewById<TextView>(R.id.embalse)
-        val DamDesborde = v.findViewById<TextView>(R.id.desborde)
-        val DamSeguridad = v.findViewById<TextView>(R.id.seguridad)
-        val DamObservacion = v.findViewById<TextView>(R.id.observacion)
-        val DamAjuste = v.findViewById<TextView>(R.id.ajuste)
-        val DamControl = v.findViewById<TextView>(R.id.control)
-        val LeyendaText = v.findViewById<TextView>(R.id.nivelesdealerta)
-        val DamLevel = v.findViewById<TextView>(R.id.level)
-        val DamDate = v.findViewById<TextView>(R.id.fecha)
-        val DamLastHour = v.findViewById<TextView>(R.id.lastHour)
-        val DamIncreaseOrDrop = v.findViewById<TextView>(R.id.droporincrease)
-        val mAdView = v.findViewById<AdView>(R.id.damad)
-        val configuration = RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList(getString(R.string.deviceTestID))).build()
-        MobileAds.setRequestConfiguration(configuration)
-        val adRequest = AdRequest.Builder().build()
-        mAdView.loadAd(adRequest)
-        DamName.text = DamMoreInfoTab.damNameToDisplay
-        DamPic.setImageResource(DamMoreInfoTab.imageToUse)
+        val damPic = v.findViewById<ImageView>(R.id.imageView)
+        val damName = v.findViewById<TextView>(R.id.embalse)
+        val damDesborde = v.findViewById<TextView>(R.id.desborde)
+        val damSeguridad = v.findViewById<TextView>(R.id.seguridad)
+        val damObservacion = v.findViewById<TextView>(R.id.observacion)
+        val damAjuste = v.findViewById<TextView>(R.id.ajuste)
+        val damControl = v.findViewById<TextView>(R.id.control)
+        val leyendaText = v.findViewById<TextView>(R.id.nivelesdealerta)
+        val damLevel = v.findViewById<TextView>(R.id.level)
+        val damDate = v.findViewById<TextView>(R.id.fecha)
+        val damLastHour = v.findViewById<TextView>(R.id.lastHour)
+        val damIncreaseOrDrop = v.findViewById<TextView>(R.id.droporincrease)
+        val adFrame = v.findViewById<FrameLayout>(R.id.damad)
+        val mAdFunctions = AdFunctions()
+        mAdFunctions.loadBanner(adFrame, R.string.dampagead, activity as AppCompatActivity)
+        damName.text = DamMoreInfoTab.damNameToDisplay
+        damPic.setImageResource(DamMoreInfoTab.imageToUse)
         val `as` = app_settings(activity!!)
         if (`as`.language == "Spanish") {
-            LeyendaText.setText(R.string.nivelesdealerta)
-            DamDesborde.setText(String.format(Locale.US, "Desborde: %s", DamMoreInfoTab.desborde))
-            DamSeguridad.setText(String.format(Locale.US, "Seguridad: %s", DamMoreInfoTab.seguridad))
-            DamObservacion.setText(String.format(Locale.US, "Observación: %s", DamMoreInfoTab.observacion))
-            DamAjuste.setText(String.format(Locale.US, "Ajuste: %s", DamMoreInfoTab.ajuste))
-            DamControl.setText(String.format(Locale.US, "Control: %s", DamMoreInfoTab.control))
+            leyendaText.setText(R.string.nivelesdealerta)
+            damDesborde.text = String.format(Locale.US, "Desborde: %s", DamMoreInfoTab.desborde)
+            damSeguridad.text = String.format(Locale.US, "Seguridad: %s", DamMoreInfoTab.seguridad)
+            damObservacion.text = String.format(Locale.US, "Observación: %s", DamMoreInfoTab.observacion)
+            damAjuste.text = String.format(Locale.US, "Ajuste: %s", DamMoreInfoTab.ajuste)
+            damControl.text = String.format(Locale.US, "Control: %s", DamMoreInfoTab.control)
         } else {
-            LeyendaText.setText(R.string.alert_levels)
-            DamDesborde.setText(String.format(Locale.US, "Overflow: %s", DamMoreInfoTab.desborde))
-            DamSeguridad.setText(String.format(Locale.US, "Security: %s", DamMoreInfoTab.seguridad))
-            DamObservacion.setText(String.format(Locale.US, "Observation: %s", DamMoreInfoTab.observacion))
-            DamAjuste.setText(String.format(Locale.US, "Adjustment: %s", DamMoreInfoTab.ajuste))
-            DamControl.setText(String.format(Locale.US, "Control: %s", DamMoreInfoTab.control))
+            leyendaText.setText(R.string.alert_levels)
+            damDesborde.text = String.format(Locale.US, "Overflow: %s", DamMoreInfoTab.desborde)
+            damSeguridad.text = String.format(Locale.US, "Security: %s", DamMoreInfoTab.seguridad)
+            damObservacion.text = String.format(Locale.US, "Observation: %s", DamMoreInfoTab.observacion)
+            damAjuste.text = String.format(Locale.US, "Adjustment: %s", DamMoreInfoTab.ajuste)
+            damControl.text = String.format(Locale.US, "Control: %s", DamMoreInfoTab.control)
         }
         if (!DamMoreInfoTab.noDataAvailable) {
             try {
                 if (`as`.language == "Spanish") {
-                    DamLevel.setText(String.format(Locale.US, "%s metros", DamMoreInfoTab.damlevel))
-                    DamDate.text = DamMoreInfoTab.damdate
+                    damLevel.text = String.format(Locale.US, "%s metros", DamMoreInfoTab.damlevel)
+                    damDate.text = DamMoreInfoTab.damdate
                 } else {
-                    DamLevel.setText(String.format(Locale.US, "%s meters", DamMoreInfoTab.damlevel))
-                    DamDate.text = DamMoreInfoTab.damdateEnglish
+                    damLevel.text = String.format(Locale.US, "%s meters", DamMoreInfoTab.damlevel)
+                    damDate.text = DamMoreInfoTab.damdateEnglish
                 }
 
-                val DamLevelDouble = java.lang.Double.parseDouble(DamMoreInfoTab.damlevel)
-                val DamDesbordeDouble = java.lang.Double.parseDouble(DamMoreInfoTab.desborde)
-                val DamSeguridadDouble = java.lang.Double.parseDouble(DamMoreInfoTab.seguridad)
-                val DamObservacionDouble = java.lang.Double.parseDouble(DamMoreInfoTab.observacion)
-                val DamAjusteDouble = java.lang.Double.parseDouble(DamMoreInfoTab.ajuste)
-                val DamControlDouble = java.lang.Double.parseDouble(DamMoreInfoTab.control)
+                val damLevelDouble = java.lang.Double.parseDouble(DamMoreInfoTab.damlevel)
+                val damDesbordeDouble = java.lang.Double.parseDouble(DamMoreInfoTab.desborde)
+                val damSeguridadDouble = java.lang.Double.parseDouble(DamMoreInfoTab.seguridad)
+                val damObservacionDouble = java.lang.Double.parseDouble(DamMoreInfoTab.observacion)
+                val damAjusteDouble = java.lang.Double.parseDouble(DamMoreInfoTab.ajuste)
+                val damControlDouble = java.lang.Double.parseDouble(DamMoreInfoTab.control)
                 if (DamMoreInfoTab.lastHourAvailable) {
                     if (`as`.language == "Spanish") {
-                        DamLastHour.setText(String.format("Lectura en la pasada hora: %s metros", DamMoreInfoTab.damlasthour))
+                        damLastHour.text = String.format("Lectura en la pasada hora: %s metros", DamMoreInfoTab.damlasthour)
                     } else {
-                        DamLastHour.setText(String.format("Data from last hour: %s meters", DamMoreInfoTab.damlasthour))
+                        damLastHour.text = String.format("Data from last hour: %s meters", DamMoreInfoTab.damlasthour)
                     }
-                    val DamLastHourDouble = java.lang.Double.parseDouble(DamMoreInfoTab.damlasthour)
-                    if (DamLastHourDouble < DamLevelDouble) {
-                        val DamMathDouble = DamLevelDouble - DamLastHourDouble
-                        if (`as`.language == "Spanish") {
-                            DamIncreaseOrDrop.setText(String.format("El embalse aumentó %." + DamMoreInfoTab.decimalplaces + "f metros.", DamMathDouble))
-                        } else {
-                            DamIncreaseOrDrop.setText(String.format("The reservoir increased %." + DamMoreInfoTab.decimalplaces + "f meters.", DamMathDouble))
+                    val damLastHourDouble = java.lang.Double.parseDouble(DamMoreInfoTab.damlasthour)
+                    when {
+                        damLastHourDouble < damLevelDouble -> {
+                            val damMathDouble = damLevelDouble - damLastHourDouble
+                            if (`as`.language == "Spanish") {
+                                damIncreaseOrDrop.text = String.format("El embalse aumentó %." + DamMoreInfoTab.decimalplaces + "f metros.", damMathDouble)
+                            } else {
+                                damIncreaseOrDrop.text = String.format("The reservoir increased %." + DamMoreInfoTab.decimalplaces + "f meters.", damMathDouble)
+                            }
+                            damIncreaseOrDrop.setTextColor(Color.parseColor("#13cc00")) //verde
                         }
-                        DamIncreaseOrDrop.setTextColor(Color.parseColor("#13cc00")) //verde
-                    } else if (DamLastHourDouble > DamLevelDouble) {
-                        val DamMathDouble = DamLastHourDouble - DamLevelDouble
-                        if (`as`.language == "Spanish") {
-                            DamIncreaseOrDrop.setText(String.format("El embalse disminuyó %." + DamMoreInfoTab.decimalplaces + "f metros", DamMathDouble))
-                        } else {
-                            DamIncreaseOrDrop.setText(String.format("The reservoir decreased %." + DamMoreInfoTab.decimalplaces + "f meters", DamMathDouble))
+                        damLastHourDouble > damLevelDouble -> {
+                            val damMathDouble = damLastHourDouble - damLevelDouble
+                            if (`as`.language == "Spanish") {
+                                damIncreaseOrDrop.text = String.format("El embalse disminuyó %." + DamMoreInfoTab.decimalplaces + "f metros", damMathDouble)
+                            } else {
+                                damIncreaseOrDrop.text = String.format("The reservoir decreased %." + DamMoreInfoTab.decimalplaces + "f meters", damMathDouble)
+                            }
+                            damIncreaseOrDrop.setTextColor(Color.parseColor("#f6000e")) // rojo
                         }
-                        DamIncreaseOrDrop.setTextColor(Color.parseColor("#f6000e")) // rojo
-                    } else if (DamLastHourDouble == DamLevelDouble) {
-                        if (`as`.language == "Spanish") {
-                            DamIncreaseOrDrop.setText(R.string.same_spanish)
-                        } else {
-                            DamIncreaseOrDrop.setText(R.string.same_english)
+                        damLastHourDouble == damLevelDouble -> {
+                            if (`as`.language == "Spanish") {
+                                damIncreaseOrDrop.setText(R.string.same_spanish)
+                            } else {
+                                damIncreaseOrDrop.setText(R.string.same_english)
+                            }
+                            damIncreaseOrDrop.setTextColor(Color.parseColor("#d9c900")) // amarillo
                         }
-                        DamIncreaseOrDrop.setTextColor(Color.parseColor("#d9c900")) // amarillo
                     }
                 } else {
                     if (`as`.language == "Spanish") {
-                        DamLastHour.setText(R.string.no_data_last_hour_spanish)
+                        damLastHour.setText(R.string.no_data_last_hour_spanish)
                     } else {
-                        DamLastHour.setText(R.string.no_data_last_hour_english)
+                        damLastHour.setText(R.string.no_data_last_hour_english)
                     }
-                    DamIncreaseOrDrop.text = ""
+                    damIncreaseOrDrop.text = ""
                 }
-                if (DamLevelDouble >= DamDesbordeDouble)
-                    DamLevel.setTextColor(Color.parseColor("#c000ff")) //violeta
-                else if (DamLevelDouble >= DamSeguridadDouble)
-                    DamLevel.setTextColor(Color.parseColor("#13cc00")) //verde
-                else if (DamLevelDouble >= DamObservacionDouble)
-                    DamLevel.setTextColor(Color.parseColor("#0006ff")) //azul
-                else if (DamLevelDouble >= DamAjusteDouble)
-                //old yellow code: f1f400
-                    DamLevel.setTextColor(Color.parseColor("#d9c900")) //amarillo
-                else if (DamLevelDouble >= DamControlDouble)
-                    DamLevel.setTextColor(Color.parseColor("#ff7700")) //arananjado
-                else
-                //fuera de servicio
-                    DamLevel.setTextColor(Color.parseColor("#f6000e")) //rojo
+                when {
+                    damLevelDouble >= damDesbordeDouble -> damLevel.setTextColor(Color.parseColor("#c000ff")) //violeta
+                    damLevelDouble >= damSeguridadDouble -> damLevel.setTextColor(Color.parseColor("#13cc00")) //verde
+                    damLevelDouble >= damObservacionDouble -> damLevel.setTextColor(Color.parseColor("#0006ff")) //azul
+                    damLevelDouble >= damAjusteDouble -> damLevel.setTextColor(Color.parseColor("#d9c900")) //amarillo
+                    damLevelDouble >= damControlDouble -> damLevel.setTextColor(Color.parseColor("#ff7700")) //arananjado
+                    else -> damLevel.setTextColor(Color.parseColor("#f6000e")) //rojo
+                }
             } catch (e: Exception) {
                 Log.e("ERROR", "An error occurred parsing doubles")
             }
 
         } else {
             if (`as`.language == "Spanish") {
-                DamLevel.setText(R.string.no_data_right_now_spanish)
-                DamDate.setText(R.string.try_later_spanish)
+                damLevel.setText(R.string.no_data_right_now_spanish)
+                damDate.setText(R.string.try_later_spanish)
             } else {
-                DamLevel.setText(R.string.no_data_right_now_english)
-                DamDate.setText(R.string.try_later_english)
+                damLevel.setText(R.string.no_data_right_now_english)
+                damDate.setText(R.string.try_later_english)
             }
-            DamLastHour.text = ""
-            DamIncreaseOrDrop.text = ""
+            damLastHour.text = ""
+            damIncreaseOrDrop.text = ""
         }
-        DamLevel.visibility = View.VISIBLE
-        DamDate.visibility = View.VISIBLE
-        DamLastHour.visibility = View.VISIBLE
-        DamIncreaseOrDrop.visibility = View.VISIBLE
+        damLevel.visibility = View.VISIBLE
+        damDate.visibility = View.VISIBLE
+        damLastHour.visibility = View.VISIBLE
+        damIncreaseOrDrop.visibility = View.VISIBLE
 
         return v
     }

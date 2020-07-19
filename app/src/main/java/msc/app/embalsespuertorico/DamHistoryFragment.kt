@@ -1,19 +1,16 @@
 package msc.app.embalsespuertorico
 
 import android.graphics.Color
-import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.FrameLayout
 import android.widget.ListView
 import android.widget.TextView
-
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.RequestConfiguration
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import java.util.*
 
 /**
@@ -25,26 +22,24 @@ class DamHistoryFragment : Fragment() {
     //Overriden method onCreateView
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.damhistory, container, false)
-        val TextViewHistory = v.findViewById<TextView>(R.id.textViewHistory)
+        val textViewHistory = v.findViewById<TextView>(R.id.textViewHistory)
         val lv = v.findViewById<ListView>(R.id.listView2)
-        val mAdView = v.findViewById<AdView>(R.id.damhistoryad)
-        val configuration = RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList(getString(R.string.deviceTestID))).build()
-        MobileAds.setRequestConfiguration(configuration)
-        val adRequest = AdRequest.Builder().build()
-        mAdView.loadAd(adRequest)
+        val adFrame = v.findViewById<FrameLayout>(R.id.damhistoryad)
+        val mAdFunctions = AdFunctions()
+        mAdFunctions.loadBanner(adFrame, R.string.historyad, activity as AppCompatActivity)
         if (!DamMoreInfoTab.historyAvailable) {
             DamMoreInfoTab.datahistory.add("No hay historial disponible en estos momentos.")
             DamMoreInfoTab.datahistoryEnglish.add("There's no reservoir statistics available at this moment.")
         }
         val `as` = app_settings(activity!!)
-        val HistoryArrayList: ArrayList<String>
-        if (`as`.language == "Spanish")
-            HistoryArrayList = DamMoreInfoTab.datahistory
+        val historyArrayList: ArrayList<String>
+        historyArrayList = if (`as`.language == "Spanish")
+            DamMoreInfoTab.datahistory
         else
-            HistoryArrayList = DamMoreInfoTab.datahistoryEnglish
-        TextViewHistory.text = DamMoreInfoTab.damNameToDisplay
+            DamMoreInfoTab.datahistoryEnglish
+        textViewHistory.text = DamMoreInfoTab.damNameToDisplay
         if (activity != null) {
-            val arrayAdapter = object : ArrayAdapter<String>(activity!!, R.layout.listviewcustomsize, HistoryArrayList) {
+            val arrayAdapter = object : ArrayAdapter<String>(activity!!, R.layout.listviewcustomsize, historyArrayList) {
                 override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                     val textView = super.getView(position, convertView, parent) as TextView
                     if (position < DamMoreInfoTab.datahistorymeters.size - 1) {

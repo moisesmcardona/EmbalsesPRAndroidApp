@@ -8,7 +8,7 @@ import android.net.Uri
  * Created by Moisés Cardona on 2/16/2019.
  */
 
-class drawerItems : Activity() {
+class DrawerItems : Activity() {
 
     @JvmOverloads
     fun mainDrawerItems(activity: Activity, activityClass: Class<*>, position: Int, my_position: Int, video: Boolean = false, id: String? = null) {
@@ -36,13 +36,13 @@ class drawerItems : Activity() {
         } else if (position == 3 + offset && position != my_position)
         //Language Select
         {
-            val app_language = app_settings(activity)
-            app_language.setLanguage(activity, activityClass)
+            val appLanguage = app_settings(activity)
+            appLanguage.setLanguage(activity, activityClass)
         } else if (position == 4 + offset)
         //Default Select
         {
-            val default_view = app_settings(activity)
-            default_view.setDefaultView(activity, activityClass)
+            val defaultView = app_settings(activity)
+            defaultView.setDefaultView(activity, activityClass)
         } else if (position == 5 + offset)
         //Default Select
         {
@@ -64,10 +64,10 @@ class drawerItems : Activity() {
     private fun launchPrivacyPolicy(activity: Activity) {
         val `as` = app_settings(activity)
         val browserIntent: Intent
-        if (`as`.language == "Spanish") {
-            browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://moisescardona.me/PoliticaPrivacidadEmbalsesPR"))
+        browserIntent = if (`as`.language == "Spanish") {
+            Intent(Intent.ACTION_VIEW, Uri.parse("https://moisescardona.me/PoliticaPrivacidadEmbalsesPR"))
         } else {
-            browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://moisescardona.me/EmbalsesPRPrivacyPolicy"))
+            Intent(Intent.ACTION_VIEW, Uri.parse("https://moisescardona.me/EmbalsesPRPrivacyPolicy"))
         }
         activity.startActivity(browserIntent)
     }
