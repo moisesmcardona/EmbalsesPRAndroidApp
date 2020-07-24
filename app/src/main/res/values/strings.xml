@@ -25,6 +25,7 @@
         <item>Facebook</item>
         <item>Idioma / Language</item>
         <item>Cambiar página principal</item>
+        <item>Tema</item>
         <item>Política de Privacidad</item>
     </string-array>
     <string-array name="drawerDamListNoVideo">
@@ -33,6 +34,7 @@
         <item>Facebook</item>
         <item>Idioma / Language</item>
         <item>Cambiar página principal</item>
+        <item>Tema</item>
         <item>Política de Privacidad</item>
     </string-array>
     <string-array name="drawerDamListWithVideo">
@@ -42,6 +44,7 @@
         <item>Facebook</item>
         <item>Idioma / Language</item>
         <item>Cambiar página principal</item>
+        <item>Tema</item>
         <item>Política de Privacidad</item>
     </string-array>
     <string-array name="drawerMainActivityListEnglish">
@@ -50,6 +53,7 @@
         <item>Facebook</item>>
         <item>Language / Idioma</item>
         <item>Change Front Page</item>
+        <item>Theme</item>
         <item>Privacy Policy</item>
     </string-array>
     <string-array name="drawerDamListNoVideoEnglish">
@@ -58,6 +62,7 @@
         <item>Facebook</item>
         <item>Language / Idioma</item>
         <item>Change Front Page</item>
+        <item>Theme</item>
         <item>Privacy Policy</item>
     </string-array>
     <string-array name="drawerDamListWithVideoEnglish">
@@ -67,10 +72,11 @@
         <item>Facebook</item>
         <item>Language / Idioma</item>
         <item>Change Front Page</item>
+        <item>Theme</item>
         <item>Privacy Policy</item>
     </string-array>
-    <string name="acerca_de">Desarrollado por: Moisés Cardona\nVersion 1.8.10\n©2015&#8211;2020 Todos los Derechos Reservados</string>
-    <string name="about_app">"Developed by: Moisés Cardona\nVersion 1.8.10\n©2015&#8211;2020 All Rights Reserved"</string>
+    <string name="acerca_de">Desarrollado por: Moisés Cardona\nVersion 1.9\n©2015&#8211;2020 Todos los Derechos Reservados</string>
+    <string name="about_app">"Developed by: Moisés Cardona\nVersion 1.9\n©2015&#8211;2020 All Rights Reserved"</string>
     <string name="website_url">https://moisescardona.me</string>
     <string name="title_activity_dam_maps">Embalses de Puerto Rico</string>
     <string name="title_activity_look_in_map">Embalses de Puerto Rico</string>

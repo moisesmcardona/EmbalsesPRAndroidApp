@@ -43,7 +43,13 @@ class DrawerItems : Activity() {
         {
             val defaultView = app_settings(activity)
             defaultView.setDefaultView(activity, activityClass)
-        } else if (position == 5 + offset)
+        }
+        else if (position == 5 + offset)
+        //Default Theme
+        {
+            val defaultTheme = app_settings(activity)
+            defaultTheme.setDefaultTheme(activity)
+        } else if (position == 6 + offset)
         //Default Select
         {
             launchPrivacyPolicy(activity)
